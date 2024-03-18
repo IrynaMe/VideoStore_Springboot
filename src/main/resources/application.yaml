@@ -1,0 +1,74 @@
+server:
+  port: 8080 #redundant
+
+spring:
+
+  application:
+    name: melnikava
+  #DATABASE
+  data:
+    jpa:
+      repositories:
+        #DEFAULT: repositories are controlled when running the app->visualises errors in JPA supported keywords inside method names
+        #DEFFERED: repositories are controlled when running the app in async mode
+        #LAZY: repositories are controlled when they are called
+        bootstrap-mode: DEFAULT
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 30MB
+      max-request-size: 30MB
+      file-size-threshold: 0
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:8889/video_store_exam?createDatabaseIfNotExist=true&autoReconnect=true&userSLL=false
+    username: root
+    password: root
+
+  jpa:
+    hibernate:
+      #create-drop #->creates db at the application launch and drops db on closing the app
+      #update #->modifies tables only regarding new attributes inserted in Entities
+      #validate #->for db like h2: to validate the schema of the database according to the defined entities
+      #none #->default if we don't specify another one: doesn't do any changes, is used at production stage
+      ddl-auto: update
+      #ddl-auto: create-drop
+    #generate-ddl: true
+    open-in-view: false
+    properties:
+      #hibernate:
+      dialect: org.hibernate.dialect.MYSQLDialect
+    show-sql: true
+  sql:
+    init:
+      #non #-> instructions sql in file data.sql under the file resources are not executed
+      #always #->at the app launch instructions sql in file data.sql are ALWAYS executed
+      mode: never
+
+
+  show-sql: true
+
+
+#LOGGING LEVEL
+logging:
+  level:
+    web: debug
+    it:
+      cgmconsulting: info
+    org:
+      springframework: info
+      cache: trace
+      hibernate:
+        type:
+          descriptor:
+            sql:
+              BasicBinder: trace #shows sql queries and values passed
+
+
+
+#CUSTOM PROPERTIES
+
+
+
